@@ -1,14 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
 
-import { FromLoginToHome } from './navigation';
+import AppContainer from './components/AppContainer';
 
 export default class App extends React.Component {
+
   render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content"/>
-        <FromLoginToHome />
+        <AppContainer />
       </View>
     );
   }

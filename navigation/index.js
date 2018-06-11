@@ -16,6 +16,11 @@ export const FromLoginToHome = createStackNavigator(
   {
     initialRouteName: 'Login',
     headerMode: 'none',
+    // navigationOptions(props) {
+    //   return {
+    //     ...props.navigationOptions,
+    //   };
+    // },
     // navigationOptions: ({ navigation }) => ({
     //   headerTransparent: true,
     //   headerTintColor: '#fff',
