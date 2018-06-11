@@ -14,7 +14,7 @@ export const FromLoginToHome = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Home',
     headerMode: 'none',
     // navigationOptions(props) {
     //   return {

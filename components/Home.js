@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import Store from "../store";
-import { StyleSheet, View, Text, Button, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, TouchableOpacity, Dimensions, AsyncStorage } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
+import { logout } from '../lib/serverFn'
 
 const window = Dimensions.get('window');
 const ww = window.width;
 const wh = window.height;
 
 class Home extends Component{
-    _handleLogout(){
+  async _handleLogout(){
+    // result = logout(key);
+    // alert(result)
 
+    try {
+      await AsyncStorage.removeItem('@RouteTestKey');
+
+      //로그아웃
+      this.props.actions.logout();
+    } catch(error){
+      return alert("ERROR")
+    }
   }
 
   render(){
@@ -116,9 +127,10 @@ const styles = StyleSheet.create({
 const HomeContainer = ({ navigation }) => {
   return(
     <Store.Consumer>
-      {(store) => (
+      {({state, actions}) => (
         <Home
-          store={store}
+          store={state}
+          actions={actions}
           navigation={navigation}
           />
         )

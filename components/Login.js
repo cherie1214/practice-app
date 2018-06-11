@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Store from "../store";
 import { StyleSheet, View, Text, Button, TextInput, TouchableOpacity, Dimensions, AsyncStorage } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Ionicons, Feather } from '@expo/vector-icons';
@@ -10,7 +11,7 @@ const window = Dimensions.get('window');
 const ww = window.width;
 const wh = window.height;
 
-export default class Login extends Component{
+class Login extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -19,7 +20,7 @@ export default class Login extends Component{
     }
   }
 
-  _handleSubmit(){
+  async _handleSubmit(){
     result = login(this.state.id, this.state.pw);
     // alert(result)
 
@@ -32,8 +33,9 @@ export default class Login extends Component{
     const key = result.data.key;
 
     try {
-      AsyncStorage.setItem('@RouteTestKey', key);
-      //넘어가기
+      await AsyncStorage.setItem('@RouteTestKey', key);
+      //로그인
+      this.props.actions.login(this.state.id);
       this.props.navigation.navigate('Home');
     } catch(error){
       return alert("ERROR")
@@ -151,3 +153,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 })
+
+const LoginContainer = ({ navigation }) => {
+  return(
+    <Store.Consumer>
+      {({state, actions}) => (
+        <Login
+          store={state}
+          actions={actions}
+          navigation={navigation}
+          />
+        )
+      }
+    </Store.Consumer>
+  )
+}
+
+export default LoginContainer;

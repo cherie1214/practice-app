@@ -12,9 +12,24 @@ class AppContainer extends Component {
     }
   }
 
+  actions = {
+    login: (id) => {
+      this.setState({
+        userName: id,
+        isSigned: true,
+      })
+    },
+    logout: () => {
+      this.setState({
+        userName: "",
+        isSigned: false,
+      })
+    }
+  }
+
   render() {
     return (
-      <Store.Provider value={this.state}>
+      <Store.Provider value={{state : this.state, actions: this.actions}}>
         <FromLoginToHome />
       </Store.Provider>
     );
